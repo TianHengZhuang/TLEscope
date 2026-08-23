@@ -172,7 +172,7 @@ static bool retlector_expanded = false;
 static bool retlector_selected[NUM_RETLECTOR_SOURCES] = {false};
 static bool other_expanded = false;
 static bool manual_expanded = true;
-static bool celestrak_selected[26] = {false};
+static bool celestrak_selected[25] = {false};
 static long data_tle_epoch = -1;
 
 enum { PULL_IDLE = 0, PULL_BUSY, PULL_DONE, PULL_ERROR };
