@@ -71,33 +71,34 @@ static TLESource_t SOURCES[] = {
 };
 
 static TLESource_t RETLECTOR_SOURCES[] = {
-    {"1", "Last 30 Days' Launches", "https://retlector.eu/tle/last-30-days"},
-    {"2", "Space Stations", "https://retlector.eu/tle/stations"},
-    {"3", "100 Brightest", "https://retlector.eu/tle/visual"},
-    {"4", "Active Satellites", "https://retlector.eu/tle/active"},
-    {"5", "Analyst Satellites", "https://retlector.eu/tle/analyst"},
-    {"6", "Russian ASAT (COSMOS 1408)", "https://retlector.eu/tle/cosmos-1408-debris"},
-    {"7", "Chinese ASAT (FENGYUN 1C)", "https://retlector.eu/tle/fengyun-1c-debris"},
-    {"8", "IRIDIUM 33 Debris", "https://retlector.eu/tle/iridium-33-debris"},
-    {"9", "COSMOS 2251 Debris", "https://retlector.eu/tle/cosmos-2251-debris"},
-    {"10", "Weather", "https://retlector.eu/tle/weather"},
-    {"11", "NOAA", "https://retlector.eu/tle/noaa"},
-    {"12", "GOES", "https://retlector.eu/tle/goes"},
-    {"13", "Earth Resources", "https://retlector.eu/tle/resource"},
-    {"14", "SARSAT", "https://retlector.eu/tle/sarsat"},
-    {"15", "Disaster Monitoring", "https://retlector.eu/tle/dmc"},
-    {"16", "TDRSS", "https://retlector.eu/tle/tdrss"},
-    {"17", "ARGOS", "https://retlector.eu/tle/argos"},
-    {"18", "Planet", "https://retlector.eu/tle/planet"},
-    {"19", "Spire", "https://retlector.eu/tle/spire"},
-    {"20", "Starlink", "https://retlector.eu/tle/starlink"},
-    {"21", "OneWeb", "https://retlector.eu/tle/oneweb"},
-    {"22", "GPS Operational", "https://retlector.eu/tle/gps-ops"},
-    {"23", "Galileo", "https://retlector.eu/tle/galileo"},
-    {"24", "Amateur Radio", "https://retlector.eu/tle/amateur"},
-    {"25", "CubeSats", "https://retlector.eu/tle/cubesat"}
+    {"1", "Active Satellites", "https://retlector.eu/active/tle"},
+    {"2", "Active Satellites (No Starlink)", "https://retlector.eu/active-no-starlink/tle"},
+    {"3", "Last 30 Days' Launches", "https://retlector.eu/last-30-days/tle"},
+    {"4", "Space Stations", "https://retlector.eu/stations/tle"},
+    {"5", "100 Brightest", "https://retlector.eu/visual/tle"},
+    {"6", "Analyst Satellites", "https://retlector.eu/analyst/tle"},
+    {"7", "Russian ASAT (COSMOS 1408)", "https://retlector.eu/cosmos-1408-debris/tle"},
+    {"8", "Chinese ASAT (FENGYUN 1C)", "https://retlector.eu/fengyun-1c-debris/tle"},
+    {"9", "IRIDIUM 33 Debris", "https://retlector.eu/iridium-33-debris/tle"},
+    {"10", "COSMOS 2251 Debris", "https://retlector.eu/cosmos-2251-debris/tle"},
+    {"11", "Weather", "https://retlector.eu/weather/tle"},
+    {"12", "NOAA", "https://retlector.eu/noaa/tle"},
+    {"13", "GOES", "https://retlector.eu/goes/tle"},
+    {"14", "Earth Resources", "https://retlector.eu/resource/tle"},
+    {"15", "SARSAT", "https://retlector.eu/sarsat/tle"},
+    {"16", "Disaster Monitoring", "https://retlector.eu/dmc/tle"},
+    {"17", "TDRSS", "https://retlector.eu/tdrss/tle"},
+    {"18", "ARGOS", "https://retlector.eu/argos/tle"},
+    {"19", "Planet", "https://retlector.eu/planet/tle"},
+    {"20", "Spire", "https://retlector.eu/spire/tle"},
+    {"21", "Starlink", "https://retlector.eu/starlink/tle"},
+    {"22", "OneWeb", "https://retlector.eu/oneweb/tle"},
+    {"23", "GPS Operational", "https://retlector.eu/gps-ops/tle"},
+    {"24", "Galileo", "https://retlector.eu/galileo/tle"},
+    {"25", "Amateur Radio", "https://retlector.eu/amateur/tle"},
+    {"26", "CubeSats", "https://retlector.eu/cubesat/tle"}
 };
-#define NUM_RETLECTOR_SOURCES 25
+#define NUM_RETLECTOR_SOURCES 26
 #define HELP_WINDOW_W 420.0f
 #define HELP_WINDOW_H 500.0f
 #define ROT_WINDOW_W 430.0f
@@ -171,7 +172,7 @@ static bool retlector_expanded = false;
 static bool retlector_selected[NUM_RETLECTOR_SOURCES] = {false};
 static bool other_expanded = false;
 static bool manual_expanded = true;
-static bool celestrak_selected[25] = {false};
+static bool celestrak_selected[26] = {false};
 static long data_tle_epoch = -1;
 
 enum { PULL_IDLE = 0, PULL_BUSY, PULL_DONE, PULL_ERROR };
