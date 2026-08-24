@@ -1,6 +1,7 @@
 name: Build and Release TLEscope
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main", "master" ]
     tags:
@@ -71,6 +72,31 @@ jobs:
         with:
           name: TLEscope-Linux-arm64-Portable
           path: dist/TLEscope-Linux-arm64-Portable/
+          retention-days: 14
+
+  build-macos:
+    name: Build macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install macOS Build Dependencies
+        run: |
+          brew install raylib pkg-config
+
+      - name: Compile and Bundle .app
+        # bundler compiles the icon + ad-hoc signs natively on the runner
+        run: make app
+
+      - name: Zip .app (preserves bundle structure and exec bits)
+        run: ditto -c -k --sequesterRsrc --keepParent dist/TLEscope.app TLEscope-macOS.zip
+
+      - name: Upload macOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TLEscope-macOS
+          path: TLEscope-macOS.zip
           retention-days: 14
 
   build-windows:
@@ -162,7 +188,7 @@ jobs:
 
   release:
     name: Publish Release
-    needs: [build-linux, build-linux-arm64, build-windows, build-windows-arm64]
+    needs: [build-linux, build-linux-arm64, build-macos, build-windows, build-windows-arm64]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v'))
     runs-on: ubuntu-latest
     permissions:
@@ -191,6 +217,8 @@ jobs:
           
           # Move installer out of its artifact subdirectory for flat publishing
           mv TLEscope-Installer/TLEscope-Installer.exe ../
+          # macOS artifact is already a ditto-zipped .app, just move it up
+          mv TLEscope-macOS/TLEscope-macOS.zip ../
           cd ..
 
       - name: Clean Existing Release Assets
@@ -223,6 +251,7 @@ jobs:
           files: |
             TLEscope-Linux-Portable.zip
             TLEscope-Linux-arm64-Portable.zip
+            TLEscope-macOS.zip
             TLEscope-Win-Portable.zip
             TLEscope-Win-arm64-Portable.zip
             TLEscope-Installer.exe
@@ -235,6 +264,7 @@ jobs:
           files: |
             TLEscope-Linux-Portable.zip
             TLEscope-Linux-arm64-Portable.zip
+            TLEscope-macOS.zip
             TLEscope-Win-Portable.zip
             TLEscope-Win-arm64-Portable.zip
             TLEscope-Installer.exe
